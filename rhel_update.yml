@@ -1,0 +1,8 @@
+---
+- name: rhel update
+  hosts: all
+  tasks:
+    - name: Install update
+      yum:
+        name: '*'
+        state: latest
