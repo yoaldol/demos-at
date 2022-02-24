@@ -1,6 +1,9 @@
 ---
-- name: install update
-  yum:
-    name: '*'
-    state: latest
-    update_cache: true
+---
+- hosts: all
+  tasks:
+    - name: install update
+      yum:
+        name: '*'
+        state: latest
+        update_cache: true
