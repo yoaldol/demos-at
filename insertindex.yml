@@ -1,0 +1,16 @@
+---
+- name: Create index.html from template
+  hosts: all
+  tasks:
+  - name: Create index.html
+    template:
+      src: index.j2
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: ensure httpd is running
+    service:
+      name: httpd 
+      state: restarted
