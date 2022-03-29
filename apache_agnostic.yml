@@ -1,7 +1,6 @@
 ---
 - name: Playbook instalacion de webservers agnostico
   hosts: all
-  become: true
   tasks:
   - name: Instalar paquete httpd en redhat
     yum:
