@@ -46,7 +46,7 @@
       state: restarted
     when: '"RedHat" in ansible_distribution'
 
-  - name: Reiniciando el servicio firewalld
+  - name: Reiniciando el servicio UFW
     service:
       name: ufw
       state: restarted
