@@ -1,60 +1,55 @@
 ---
 - name: Playbook instalacion de webservers agnostico
   hosts: all
+  become: true
   tasks:
   - name: Instalar paquete httpd en redhat
-    set_fact:
-      yum:
-        name: httpd
-        state: latest
-    when: '"redhat" in ansible_distribution'
+    yum:
+      name: httpd
+      state: latest
+    when: '"RedHat" in ansible_distribution'
 
   - name: Instalar paquete apache2 en ubuntu
-    set_fact:
-      apt: name=apache2 
+    apt:
+      name: apache2
       state: latest
-    when: '"ubuntu" in ansible_distribution'
+    when: '"Ubuntu" in ansible_distribution'
 
   - name: Reiniciando el servicio httpd
-    set_fact:
-      service:
-        name: httpd 
-        state: restarted
-    when: '"redhat" in ansible_distribution'
+    service:
+      name: httpd
+      state: restarted
+    when: '"RedHat" in ansible_distribution'
 
   - name: Reiniciando el servicio apache2
-    set_fact:
-      service:
-        name: apache2
-        state: restarted
-    when: '"ubuntu" in ansible_distribution'
+    service:
+      name: apache2
+      state: restarted
+    when: '"Ubuntu" in ansible_distribution'
 
   - name: Permitiendo el servicio http
-    set_fact:
-      firewalld:
-        service: http
-        permanent: true
-        state: enabled
-    when: '"redhat" in ansible_distribution'
+    firewalld:
+      service: http
+      permanent: true
+      state: enabled
+    when: '"RedHat" in ansible_distribution'
 
   - name: Permitiendo el puerto 80
-    set_fact:
-      ufw:
-        rule: allow
-        port: '80'
-        proto: tcp
-    when: '"ubuntu" in ansible_distribution'
+    ufw:
+      rule: allow
+      port: '80'
+      proto: tcp
+    when: '"Ubuntu" in ansible_distribution'
 
   - name: Reiniciando el servicio firewalld
-    set_fact:
-      service: 
-        name: firewalld 
-        state: restarted  
-    when: '"redhat" in ansible_distribution'
+    service:
+      name: firewalld
+      state: restarted
+    when: '"RedHat" in ansible_distribution'
 
   - name: Reiniciando el servicio firewalld
-    set_fact:
-      service: 
-        name: ufw
-        state: restarted  
-    when: '"ubuntu" in ansible_distribution'
+    service:
+      name: ufw
+      state: restarted
+    when: '"Ubuntu" in ansible_distribution'
+
